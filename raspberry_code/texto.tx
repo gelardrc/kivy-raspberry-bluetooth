@@ -1,0 +1,14 @@
+como configurar o bluetooth
+
+1 - abra o terminal e de : 
+
+	bluetoothct
+tenta conectar , dev3e dar erro mas caga
+
+2 - de esse comando
+
+	sudo rfcomm watch hci0
+
+3 - Agora no pc faça a conexão com o bluetooth como serial port
+
+4 - ta tudo lindo  

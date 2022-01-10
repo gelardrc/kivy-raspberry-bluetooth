@@ -1,0 +1,331 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    ThirdWindow:
+    ForthWindow:
+   
+
+<MainWindow>:
+    name:"main"
+
+    canvas.before:
+        BorderImage:
+            # BorderImage behaves like the CSS BorderImage
+            border: 200, 10, 200, 10
+            source: 'back.jpg'
+            pos: self.pos
+            size: self.size
+    
+    GridLayout:
+        cols:1
+        size: root.width , root.height
+        #pos: 100, 100
+        #font_size:'30sp'
+        size_hint: 1,1
+
+        BoxLayout:
+            orientation:'vertical'
+            size_hint: 1,0.2
+        GridLayout:
+            cols: 3
+            size_hint: 1,0.2
+            Label:
+                text:""
+                size_hint: .33,.2
+            Button:
+                color : 1,1,1,1
+                text: "Controlar velocidade"
+                on_release : app.root.current = "control"
+                on_press: root.button1()
+                size_hint: .33,.2
+                #font_size: 10
+            Label:
+                text:""
+                size_hint: .33,.2
+        BoxLayout:
+            orientation:'vertical'
+            size_hint:(.1,.1)
+        
+        GridLayout:
+            cols: 3
+            size_hint: 1,.2            
+            Label:
+                text:""
+                size_hint:.33,.2
+            
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: .33,.2
+                #padding: 200, 10, 200, 10
+
+                Button:
+                    text: "Ler velocidade atual"
+                    on_release : app.root.current = "atual"
+                    on_press : root.button2()
+            Label:
+                text:""
+                size_hint:.33,.2        
+        
+        BoxLayout:
+            orientation:'vertical'
+            size_hint:(.1,.1)
+        GridLayout:
+            cols: 3
+            size_hint: 1,.2
+            Label:
+                text:""
+                size_hint: .33,.2
+            Button:
+                text: "Leituras Antigas"
+                size_hint: .33,.2
+                on_release : app.root.current = "antigo"
+                on_press: root.button3()
+            Label:
+              
+                text:""
+                size_hint: .33,.2
+        Label:
+            text:""
+            size_hint: 1,.8
+
+<SecondWindow>:
+    name:"control"
+
+    canvas.before:
+        BorderImage:
+            
+            border: 200, 10, 200, 10
+            source: 'back.jpg'
+            pos: self.pos
+            size: self.size
+    
+    
+    GridLayout:
+        cols:1
+        size_hint:1,1
+        
+        Label:
+            text:""
+            size_hint: 1,.3 
+        
+        GridLayout:
+            cols:3
+            size_hint: 1,1
+
+            Label:
+                text : "Velocidade"
+                size_hint:.6,.1
+
+
+
+            Button:
+                text: "+"
+                size_hint:(.2,.1)
+                on_release: root.aumenta()
+
+            Button:
+                text: "-"
+                size_hint: (.2,.1)
+                on_release: root.diminui()
+        #    
+            Label:
+                
+                text : "Sentido"
+                size_hint:(.6,.1)
+
+  
+            Button:
+                text: "Horario"
+                size_hint: (.2,.1)
+                on_release : root.hora()
+
+            Button:
+                text: "Anti-horario"
+                size_hint: (.2,.1)
+                on_release : root.anti() 
+        Label:
+            
+            text:""
+            size_hint: (1,.5)
+        Button:
+            text:"Voltar"
+            on_release : app.root.current = "main"
+            size_hint: (1,.2)
+#   
+        #Button:
+        #    color : 1,1,1,1
+        #    size_hint : 1,.1
+        #    text: "Voltar"
+        #    
+        #Button:
+        #    text:"123"
+        #    size_hint: 1,.1
+        #Button:
+        #    text:""
+        #    size_hint: 1,.1
+
+
+<ThirdWindow>:
+    name:"atual"
+    lido:lido
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    BoxLayout:
+        orientation:'vertical'
+        size_hint: 1,1
+        color: 1,1,1,1
+       
+        Label:
+            id:lido
+            color: 0,0,1,1
+            font_size:32
+            size_hint: 1,.2
+        BoxLayout:
+            orientation:'vertical'
+            id: graph_online
+            size_hint: 1,1
+        
+        GridLayout:
+            cols: 4
+            size_hint:1,.1
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: .25,1
+                Button:
+                    color : 1,1,1,1
+                    text: "Voltar"
+                    on_release : app.root.current = "main"
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: .25,1
+                Button:
+                    color : 1,1,1,1
+                    text: "Salvar grafico"
+                    on_release: root.salva_grafico()
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: .25,1
+                Button:
+                    color : 1,1,1,1
+                    text: "Pause"
+                    on_release: root.pausa()
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: .25,1
+                Button:
+                    color : 1,1,1,1
+                    text: "Continua"
+                    on_release: root.continua()
+
+        
+        
+<ForthWindow>:
+    name:"antigo"
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation:'vertical'
+        size_hint : 1,1
+        Label:
+            text:''
+            size_hint : 0.1,0.1
+        GridLayout:
+            cols: 3
+            size_hint: 1,0.1
+            Label:
+                text:''
+                size_hint : 0.4,0.1
+            Spinner:
+                #size:(10, 10)
+                #pos_hint:{'center_x': .5, 'center_y': .5}
+                text: "Periodo de leitura"
+                id : mainbutton
+                on_text: root.spinner(mainbutton.text)
+            Label:
+                text:''
+                size_hint : 0.4,0.1
+
+        BoxLayout:
+            id: graph
+            orientation:'vertical'
+            size_hint: 1,1
+        
+        BoxLayout:
+            orientation:'vertical'
+            size_hint: 1,0.4
+        
+            GridLayout:
+                cols:4
+
+                BoxLayout:
+
+                    orientation:'vertical'
+                    size_hint: (.2,.2)
+                    padding: 10, 10, 0, 10
+
+                    Button:
+                        color : 1,1,1,1
+                        text: "Zoom X_out"
+                        on_press : root.button_zoom_x(1)
+                BoxLayout:
+
+                    orientation:'vertical'
+                    size_hint: (.2,.2)
+                    padding: 10, 10, 0, 10
+
+                    Button:
+                        color : 1,1,1,1
+                        text: "Zoom X_in"
+                        on_press : root.button_zoom_x(-1)
+
+                BoxLayout:
+
+                    orientation:'vertical'
+                    size_hint: (.2,.2)
+                    padding: 10, 10, 0, 10
+
+                    Button:
+                        color : 1,1,1,1
+                        text: "Zoom Y_out"
+                        on_press : root.button_zoom_y(1)
+                BoxLayout:
+
+                    orientation:'vertical'
+                    size_hint: (.2,.2)
+                    padding: 10, 10, 10, 10
+
+                    Button:
+                        color : 1,1,1,1
+                        #background_color: .5,.5,.5,1
+                        text: "Zoom Y_in"
+                        on_press : root.button_zoom_y(-1)
+
+                BoxLayout:
+
+                    orientation:'vertical'
+                    size_hint: (.2,.2)
+                    padding: 10, 10, 0, 10
+
+                    Button:
+                        color : 1,1,1,1
+                        text: "Voltar"
+                        on_release : app.root.current = "main"
+                BoxLayout:
+
+                    orientation:'vertical'
+                    size_hint: (.2,.2)
+                    padding: 10, 10, 0, 10
+
+                    Button:
+                        color : 1,1,1,1
+                        text: "Grid"
+                        on_release : root.grid(1)
